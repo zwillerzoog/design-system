@@ -44,7 +44,7 @@ $dialog-spacer: $spacer-4;
   background-repeat: no-repeat;
   background-size: 12px 12px;
   margin-left: auto;
-  padding: 0 0 0 (12px + $spacer-1);
+  padding: 0 0 0 (0.75em + $spacer-1);
 
   &:active,
   &:hover {

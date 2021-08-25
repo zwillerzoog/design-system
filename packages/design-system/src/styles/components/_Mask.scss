@@ -22,5 +22,5 @@
 
 .ds-c-field--currency {
   // Normal padding + space for the icon + normal padding
-  padding-left: $input-padding + 4px + $input-padding;
+  padding-left: $input-padding + 0.25em + $input-padding;
 }

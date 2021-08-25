@@ -5,7 +5,8 @@
 // 10px. Since styling a root element goes against the guiding principles
 // of this design system, we use px units instead.
 
-$base-font-size: 16px !default;
+$base-font-size: 1em !default;
+$text-scale-ratio: 1.25 !default;
 
 // To Do: Remove this block of variables after deprecating
 
@@ -24,14 +25,26 @@ $h6-font-size: $small-font-size !default;
 
 // END to do
 
-$font-size-5xl: $display-font-size !default; //60px
-$font-size-4xl: $title-font-size !default; // 48px
-$font-size-3xl: $h1-font-size !default; // 36px - h1
-$font-size-2xl: $h2-font-size !default; // 24px - h2
-$font-size-xl: $h3-font-size !default; // 21px - h3
-$font-size-lg: $lead-font-size !default; // 18px - h4 - lead - body large
-$font-size-md: $base-font-size !default; // 16px - h5 - base - body medium
-$font-size-sm: $small-font-size !default; // 14px - h6 - body small
+$font-size-5xl: calc(
+  1em * #{$text-scale-ratio} * #{$text-scale-ratio} * #{$text-scale-ratio} * #{$text-scale-ratio} *
+  #{$text-scale-ratio} * #{$text-scale-ratio}
+) !default; //60px
+$font-size-4xl: calc(
+  1em * #{$text-scale-ratio} * #{$text-scale-ratio} * #{$text-scale-ratio} * #{$text-scale-ratio} *
+  #{$text-scale-ratio}
+) !default; // 48px
+$font-size-3xl: calc(
+  1em * #{$text-scale-ratio} * #{$text-scale-ratio} * #{$text-scale-ratio} * #{$text-scale-ratio}
+) !default; // 36px - h1
+$font-size-2xl: calc(
+  1em * #{$text-scale-ratio} * #{$text-scale-ratio} * #{$text-scale-ratio}
+) !default; // 24px - h2
+$font-size-xl: calc(1em * #{$text-scale-ratio} * #{$text-scale-ratio}) !default; // 21px - h3
+$font-size-lg: calc(1em * #{$text-scale-ratio}) !default; // 18px - h4 - lead - body large
+$font-size-md: calc(1em / #{$text-scale-ratio}) !default; // 16px - h5 - base - body medium
+$font-size-sm: calc(
+  1em / (#{$text-scale-ratio} * #{$text-scale-ratio})
+) !default; // 14px - h6 - body small
 
 $font-sans: 'Open Sans', Helvetica, sans-serif !default;
 $font-serif: Bitter, Georgia, serif !default;

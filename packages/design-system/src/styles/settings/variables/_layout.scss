@@ -1,4 +1,4 @@
-$multiple: 8px !default;
+$multiple: 0.5em !default;
 
 $spacers: (
   0,
@@ -24,10 +24,10 @@ $spacer-half: $spacer-1 / 2; // 4px
 // INTERNAL: If these values change, the values used for the responsive previews
 // in the documentation should also change.
 $width-xs: 0 !default;
-$width-sm: 544px !default;
-$width-md: 768px !default;
-$width-lg: 1024px !default;
-$width-xl: 1280px !default;
+$width-sm: 34em !default;
+$width-md: 48em !default;
+$width-lg: 64em !default;
+$width-xl: 80em !default;
 
 // Breakpoints
 $breakpoints: (
