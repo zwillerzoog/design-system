@@ -5,6 +5,13 @@ admin_path:
 webhook_url: 
 sections:
 - type: directory
+  path: packages/design-system-docs/src/pages/startup
+  label: Getting started
+  create: all
+  match: "**/*"
+  templates:
+  - basic-page
+- type: directory
   path: packages/design-system-docs/src/pages/guidelines
   label: Guidelines
   create: all
