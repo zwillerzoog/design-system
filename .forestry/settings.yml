@@ -12,8 +12,8 @@ sections:
   new_doc_ext: md
   templates:
   - basic-page
-upload_dir: uploads
-public_path: "/uploads"
+upload_dir: packages/design-system-docs/src/images
+public_path: "/images"
 front_matter_path: ''
 use_front_matter_path: false
 file_template: ":filename:"
