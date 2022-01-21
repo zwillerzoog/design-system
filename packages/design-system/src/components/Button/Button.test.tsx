@@ -1,4 +1,4 @@
-import Button, { ButtonProps, ButtonComponentType } from './Button';
+import Button, { ButtonProps } from './Button';
 import React from 'react';
 import { shallow } from 'enzyme';
 

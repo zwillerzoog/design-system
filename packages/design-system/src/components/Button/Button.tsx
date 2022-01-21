@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 export type CustomButtonComponentType = React.ComponentType<any> | React.FC;
-export type ButtonComponentType = React.ElementType<any> | CustomButtonComponentType;
+export type ButtonComponentType = 'a' | 'button' | CustomButtonComponentType;
 export type ButtonSize = 'small' | 'big';
 export type ButtonType = 'button' | 'submit';
 /**
@@ -11,7 +11,7 @@ export type ButtonType = 'button' | 'submit';
  */
 export type ButtonVariation = 'primary' | 'danger' | 'success' | 'transparent';
 
-type CommonButtonProps<T extends ButtonComponentType> = {
+type CommonButtonProps = {
   /**
    * Label text or HTML
    */
@@ -21,17 +21,12 @@ type CommonButtonProps<T extends ButtonComponentType> = {
    * Useful for adding utility classes.
    */
   className?: string;
-  /**
-   * When provided, this will render the passed in component. This is useful when
-   * integrating with React Router's `<Link>` or using your own custom component.
-   */
-  component?: T;
   disabled?: boolean;
   /**
    * When provided the root component will render as an `<a>` element
    * rather than `button`.
    */
-  href?: string; // Still optional because it's optional on the anchor tag
+  href?: string;
   /**
    * Access a reference to the `button` or `a` element
    */
@@ -60,11 +55,30 @@ type CommonButtonProps<T extends ButtonComponentType> = {
 };
 
 type OmitProps = 'children' | 'className' | 'onClick' | 'ref' | 'size' | 'type' | 'href';
+type PropsOf<T extends ButtonComponentType> = Omit<React.ComponentPropsWithRef<T>, OmitProps>;
 
-export type ButtonProps<T extends ButtonComponentType> = CommonButtonProps<T> &
-  (T extends React.ElementType ? Omit<React.ComponentPropsWithRef<T>, OmitProps> : unknown);
+type LinkButtonProps = Omit<CommonButtonProps, 'href'> & {
+  component: 'a' | 'button';
+  /**
+   * When provided the root component will render as an `<a>` element
+   * rather than `button`.
+   */
+  href: string;
+}; // & PropsOf<'a'>;
+type ButtonButtonProps = CommonButtonProps & {
+  component: 'button';
+}; // & PropsOf<'button'>;
+type CustomButtonProps = CommonButtonProps & {
+  /**
+   * When provided, this will render the passed in component. This is useful when
+   * integrating with React Router's `<Link>` or using your own custom component.
+   */
+  component: CustomButtonComponentType;
+};
 
-export const Button = <T extends ButtonComponentType = 'button'>(props: ButtonProps<T>) => {
+export type ButtonProps = LinkButtonProps | ButtonButtonProps | CustomButtonProps;
+
+export const Button = (props: ButtonProps) => {
   if (process.env.NODE_ENV !== 'production') {
     if (props.inverse) {
       console.warn(
@@ -114,7 +128,7 @@ export const Button = <T extends ButtonComponentType = 'button'>(props: ButtonPr
   // If props.component is 'button', it is not a custom React component. In cases
   // where the user didn't specify a custom component and did include an href, we
   // want to use `<a>` for our element.
-  if (ComponentType === 'button' && props.href) {
+  if (ComponentType === 'button' && ((props as unknown) as LinkButtonProps).href) {
     // Need to assert any for TypeScript because T is technically 'button'
     ComponentType = 'a' as any;
   }
@@ -141,7 +155,7 @@ export const Button = <T extends ButtonComponentType = 'button'>(props: ButtonPr
     attrs.onClick = handleClick;
   }
 
-  if (component !== 'button' || props.href) {
+  if (component !== 'button' || ((props as unknown) as LinkButtonProps).href) {
     // Assume `component` is not a <button> and remove <button> specific attributes
     attrs.role = 'button';
     delete attrs.disabled;
