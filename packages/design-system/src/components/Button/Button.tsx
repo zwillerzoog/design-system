@@ -11,7 +11,15 @@ export type ButtonType = 'button' | 'submit';
  */
 export type ButtonVariation = 'primary' | 'danger' | 'success' | 'transparent';
 
-type CommonButtonProps<T extends ButtonComponentType> = {
+type DetermineButtonComponentType<Props extends { component: unknown }> = Props extends {
+  component: CustomButtonComponentType;
+}
+  ? CustomButtonComponentType
+  : Props extends { href: string }
+  ? 'a'
+  : Props['component'];
+
+type CommonButtonProps = {
   /**
    * Label text or HTML
    */
@@ -25,7 +33,7 @@ type CommonButtonProps<T extends ButtonComponentType> = {
    * When provided, this will render the passed in component. This is useful when
    * integrating with React Router's `<Link>` or using your own custom component.
    */
-  component?: T;
+  component: ButtonComponentType;
   disabled?: boolean;
   /**
    * When provided the root component will render as an `<a>` element
@@ -61,10 +69,45 @@ type CommonButtonProps<T extends ButtonComponentType> = {
 
 type OmitProps = 'children' | 'className' | 'onClick' | 'ref' | 'size' | 'type' | 'href';
 
-export type ButtonProps<T extends ButtonComponentType> = CommonButtonProps<T> &
-  (T extends React.ElementType ? Omit<React.ComponentPropsWithRef<T>, OmitProps> : unknown);
+// Source: https://github.com/emotion-js/emotion/blob/master/packages/styled-base/types/helper.d.ts
+// A more precise version of just React.ComponentPropsWithoutRef on its own
+export type PropsOf<
+  C extends keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>
+> = JSX.LibraryManagedAttributes<C, React.ComponentPropsWithoutRef<C>>;
 
-export const Button = <T extends ButtonComponentType = 'button'>(props: ButtonProps<T>) => {
+/**
+ * Allows for extending a set of props (`ExtendedProps`) by an overriding set of props
+ * (`OverrideProps`), ensuring that any duplicates are overridden by the overriding
+ * set of props.
+ */
+export type ExtendableProps<ExtendedProps = {}, OverrideProps = {}> = OverrideProps &
+  Omit<ExtendedProps, keyof OverrideProps>;
+
+/**
+ * Allows for inheriting the props from the specified element type so that
+ * props like children, className & style work, as well as element-specific
+ * attributes like aria roles. The component (`C`) must be passed in.
+ */
+export type InheritableElementProps<C extends React.ElementType, Props = {}> = ExtendableProps<
+  PropsOf<C>,
+  Props
+>;
+
+/**
+ * A more sophisticated version of `InheritableElementProps` where
+ * the passed in `as` prop will determine which props can be included
+ */
+export type PolymorphicComponentProps<
+  C extends React.ElementType,
+  Props = {}
+> = InheritableElementProps<C, Props>;
+
+export type ButtonProps<P extends CommonButtonProps> = PolymorphicComponentProps<
+  DetermineButtonComponentType<P>,
+  CommonButtonProps
+>;
+
+export const Button = <T extends CommonButtonProps>(props: ButtonProps<T>) => {
   if (process.env.NODE_ENV !== 'production') {
     if (props.inverse) {
       console.warn(
