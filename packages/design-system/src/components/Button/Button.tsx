@@ -64,10 +64,10 @@ type LinkButtonProps = Omit<CommonButtonProps, 'href'> & {
    * rather than `button`.
    */
   href: string;
-}; // & PropsOf<'a'>;
+} & PropsOf<'a'>;
 type ButtonButtonProps = CommonButtonProps & {
   component: 'button';
-}; // & PropsOf<'button'>;
+} & PropsOf<'button'>;
 type CustomButtonProps = CommonButtonProps & {
   /**
    * When provided, this will render the passed in component. This is useful when
