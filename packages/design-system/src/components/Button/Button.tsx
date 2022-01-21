@@ -54,29 +54,31 @@ type CommonButtonProps = {
   variation?: ButtonVariation;
 };
 
-type OmitProps = 'children' | 'className' | 'onClick' | 'ref' | 'size' | 'type' | 'href';
-type PropsOf<T extends ButtonComponentType> = Omit<React.ComponentPropsWithRef<T>, OmitProps>;
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+type Merge<M, N> = Omit<M, Extract<keyof M, keyof N>> & N;
 
-type LinkButtonProps = Omit<CommonButtonProps, 'href'> & {
+type LinkButtonProps = Merge<CommonButtonProps, {
   component: 'a' | 'button';
   /**
    * When provided the root component will render as an `<a>` element
    * rather than `button`.
    */
   href: string;
-}; // & PropsOf<'a'>;
-type ButtonButtonProps = CommonButtonProps & {
+}>;
+
+type ButtonButtonProps = Merge<CommonButtonProps, {
   component: 'button';
-}; // & PropsOf<'button'>;
-type CustomButtonProps = CommonButtonProps & {
+}>;
+
+type CustomButtonProps = Merge<CommonButtonProps, {
   /**
    * When provided, this will render the passed in component. This is useful when
    * integrating with React Router's `<Link>` or using your own custom component.
    */
   component: CustomButtonComponentType;
-};
+}>;
 
-export type ButtonProps = LinkButtonProps | ButtonButtonProps | CustomButtonProps;
+export type ButtonProps = CommonButtonProps | LinkButtonProps | ButtonButtonProps | CustomButtonProps;
 
 export const Button = (props: ButtonProps) => {
   if (process.env.NODE_ENV !== 'production') {
