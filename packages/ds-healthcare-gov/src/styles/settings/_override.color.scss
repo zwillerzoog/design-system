@@ -1,30 +1,87 @@
+$color-white: #fff;
+$color-base: #262626;
+$color-black: #000;
+$color-gray-dark: #404040;
+$color-gray: #5a5a5a;
+$color-gray-medium: #737373;
+$color-gray-light: #a6a6a6;
+$color-gray-lighter: #d9d9d9;
+$color-gray-lightest: #f2f2f2;
+$color-gray-warm-dark: #5a5a5a;
+$color-gray-warm-light: #f2f2f2;
+$color-gray-cool-light: #e6f1f8;
 $color-primary: #046791;
-$color-primary-darker: darken($color-primary, 5%);
-$color-primary-darkest: darken($color-primary, 15%);
-
+$color-primary-darker: #045d83;
+$color-primary-darkest: #034866;
 $color-primary-alt: #3e94cf;
-$color-primary-alt-lightest: #cfeffc;
-
-$color-gray-lightest: #f7f7f7;
-
-$color-green: #12890e;
-$color-green-light: #0d5e0b;
-$color-green-lighter: #94bfa2;
-$color-green-lightest: #e7f4e3;
-// The variables $color-green-dark and $color-green-darker don't exist in the
-// Design System, but $color-success-dark and $color-success-darker do.
-$color-success-dark: darken($color-green, 3%);
-$color-success-darker: darken($color-green, 6%);
-
-$color-warn: #f8c41f;
-//color-warn-light exists in the Design System, but is named $color-warn-lighter
-$color-warn-light: #fad980;
-
+$color-primary-alt-dark: #3885ba;
+$color-primary-alt-darkest: #1f4a68;
+$color-primary-alt-light: #78b4dd;
+$color-primary-alt-lightest: #ecf4fa;
 $color-secondary: #b20000;
-$color-secondary-dark: #8d0000;
-$color-secondary-light: #e59393;
-$color-secondary-lightest: #f8dddd;
-
-// Focus colors
+$color-secondary-dark: #7d0000;
+$color-secondary-light: #c94d4d;
+$color-secondary-lightest: #f7e6e6;
+$color-red: #e31c3d;
+$color-red-dark: #cc1937;
+$color-red-darker: #9f142b;
+$color-red-darkest: #720e1f;
+$color-red-light: #e63350;
+$color-red-lighter: #f18e9e;
+$color-red-lightest: #fce8ec;
+$color-gold: #f8c41f;
+$color-gold-dark: #dfb01c;
+$color-gold-darker: #ae8916;
+$color-gold-darkest: #7c6210;
+$color-gold-light: #f9ca35;
+$color-gold-lighter: #fce28f;
+$color-gold-lightest: #fef9e9;
+$color-green: #12890e;
+$color-green-dark: #107b0d;
+$color-green-darker: #0d600a;
+$color-green-darkest: #094507;
+$color-green-light: #0d600a;
+$color-green-lighter: #89c487;
+$color-green-lightest: #e7f3e7;
+$color-cool-blue: #2b6891;
+$color-cool-blue-light: #3e94cf;
+$color-cool-blue-lighter: #78b4dd;
+$color-cool-blue-lightest: #ecf4fa;
+$color-muted-inverse: #c0c0c0;
+$color-focus: #3e94cf;
+$color-focus-inverse: #4ed2ee;
+$focus-color: #fad662;
+$focus-color-inverse: #fad662;
+$focus-border-inverse: #7c6210;
 $color-focus-light: #fff;
-$color-focus-dark: #dd3603;
+$color-focus-dark: #bd13b8;
+$color-visited: #4c2c92;
+$color-error: #e31c3d;
+$color-error-dark: #cc1937;
+$color-error-darker: #9f142b;
+$color-error-darkest: #720e1f;
+$color-error-light: #e63350;
+$color-error-lighter: #f18e9e;
+$color-error-lightest: #fce8ec;
+$color-warn: #f8c41f;
+$color-warn-dark: #dfb01c;
+$color-warn-darker: #ae8916;
+$color-warn-darkest: #7c6210;
+$color-warn-light: #f9ca35;
+$color-warn-lighter: #fce28f;
+$color-warn-lightest: #fef9e9;
+$color-success: #12890e;
+$color-success-dark: #107b0d;
+$color-success-darker: #0d600a;
+$color-success-darkest: #094507;
+$color-success-light: #2a9526;
+$color-success-lighter: #89c487;
+$color-success-lightest: #e7f3e7;
+$color-muted: #5a5a5a;
+$color-base-inverse: #fff;
+$color-background: #fff;
+$color-background-inverse: #00395e;
+$color-background-dialog: #fff;
+$border-color: #d9d9d9;
+$border-color-dark: #404040;
+$border-color-inverse: #fff;
