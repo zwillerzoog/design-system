@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { ColorTokens, HexValue, RGBValue, RGBAValue, FileDescriptor } from './types';
+import { HexValue, RGBValue, RGBAValue, FileDescriptor } from './types';
 
 // converts an rgb string 'rgb(15,24,128)' to a hex value '#0819A9'
 export const rgbToHex = (r: number, g: number, b: number): HexValue => {

@@ -24,27 +24,14 @@ Folder structure is as follows:
     │   ├── copy_themes.sh              -- shell script to copy themes to child systems
     │   ├── lib
     │   │   ├── exportCsv.ts            -- CSV file exporter
-    │   │   ├── exportJson.ts           -- JSON file exporter
     │   │   ├── exportScss.ts           -- Sass (scss) file exporter
     │   │   ├── types.ts                -- typescript type definitions
     │   │   └── utility.ts              -- helper functions
-    │   ├── themes                      -- themes organized by package name
-    │   │   ├── core
-    │   │   │   └── defaultTheme.ts
-    │   │   ├── healthcare
-    │   │   │   └── defaultTheme.ts
-    │   │   └── medicare
-    │   │       └── defaultTheme.ts
-    │   └── tokens                      -- tokens by type
-    │       ├── animation.ts
-    │       ├── color.ts
-    │       ├── font.ts
-    │       ├── index.ts
-    │       ├── media.ts
-    │       ├── radius.ts
-    │       ├── spacer.ts
-    │       ├── time.ts
-    │       └── zIndex.ts
+    │   ├── themes                      -- theme alias files
+    │   │   ├── core.theme.json
+    │   │   ├── healthcare.theme.json
+    │   │   └── medicare.theme.json
+    │   └── cmsds.tokens.json           -- CMSDS Token Store
     └── tsconfig.json                   -- typescript configuration
 
 ## How to use
@@ -53,23 +40,14 @@ Folder structure is as follows:
     `yarn build inputType outputType`
 
     inputTypes: `tokens` (all tokens), `themes` (all themes)
-    outputTypes: `scss` (Sass), `csv` (comma separated values), `json` (for sketch import or general use)
+    outputTypes: `scss` (Sass), `csv` (comma separated values)
 
     `yarn clean` - clean dist directory
     `yarn dist` - copy themes from dist directory to appropriate settings folder for child systems
 
 ## CMSDS Theming
 
-Themes for each subsystem are stored under `src/themes` with a sub-directory there for each system, each
-sub-directory containing as many themes as desired. Theme files are typescript modules which export an
-object containing typed style content including any tokens which should be exported with that theme.
-
-[This theme template](src/themeTemplate.ts) is a good place to start for setting up a new theme.
-
-Theme variables can be defined by including token modules from `src/tokens`. Type definitions for
-theme definitions can be found in [src/lib/types.ts](./src/lib/types.ts).
-
-Themes should include a full set of component variable declarations, [defined here](./src/componentVariables.ts).
+Themes for each subsystem are stored under `src/themes` as JSON files using the alias syntax of "alias name": `"{token category.token name.token identifier}"`. Alias names reference token values from the primary `cmsds.tokens.json` file.
 
 ## Sketch,Utilization
 
