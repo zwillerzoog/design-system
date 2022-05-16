@@ -3,6 +3,7 @@ import React from 'react';
 import Tooltip from './Tooltip';
 import TooltipIcon from './TooltipIcon';
 import Button from '../Button/Button';
+import Choice from '../ChoiceList/Choice';
 
 export default {
   title: 'Components/Tooltip',
@@ -95,3 +96,50 @@ TooltipWithCloseButton.args = {
   showCloseButton: true,
   className: 'ds-c-button',
 };
+
+export const Bug = (args) => (
+  <div className="ds-u-display--flex ds-u-align-items--center ds-u-margin--7 ds-u-padding--7">
+    <div className="ds-u-display--flex ds-u-align-items--center ds-u-margin-right--1 ds-u-border--1">
+      <Choice
+        onChange={() => {}}
+        checked={false}
+        disabled={true}
+        name="isReady"
+        value="isReady"
+        label="Ready for Assessment"
+        type="checkbox"
+      />
+      <Tooltip
+        title={
+          <>
+            <p className="ds-u-margin-top--0">Hello world</p>
+            <p>I am some tooltip content</p>
+          </>
+        }
+      >
+        <TooltipIcon />
+      </Tooltip>
+    </div>
+    <div className="ds-u-display--flex ds-u-align-items--center ds-u-border--1">
+      <Choice
+        onChange={() => {}}
+        checked={false}
+        disabled={false}
+        name="isReady"
+        value="isReady"
+        label="Ready for Assessment"
+        type="checkbox"
+      />
+      <Tooltip
+        title={
+          <>
+            <p className="ds-u-margin-top--0">Hello world</p>
+            <p>I am some tooltip content</p>
+          </>
+        }
+      >
+        <TooltipIcon />
+      </Tooltip>
+    </div>
+  </div>
+);
