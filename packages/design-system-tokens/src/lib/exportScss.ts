@@ -59,7 +59,21 @@ export const exportScss = (fileDescriptors: FileDescriptor[], outPath: string): 
 
       Object.entries(importedModule.default).forEach(([section]) => {
         tokenItems = flatten(importedModule.default[section]);
-        output += formatTokensAsSCSS(tokenItems, section, (n, v) => `$${n}: ${v} !default;\n`, sep);
+        /*
+         * The core theme scss needs the !default attribute added to every style
+         * to allow for overriding in medicare,
+         * @TODO: get all systems on the same page and remove this
+         */
+        if (file.baseName.includes('core')) {
+          output += formatTokensAsSCSS(
+            tokenItems,
+            section,
+            (n, v) => `$${n}: ${v} !default;\n`,
+            sep
+          );
+        } else {
+          output += formatTokensAsSCSS(tokenItems, section, (n, v) => `$${n}: ${v};\n`, sep);
+        }
       });
 
       writeFile(filename, output);
