@@ -30,7 +30,9 @@ interface UseCodeSnippetProps {
  * HTML code snippet. This component will prettify an html string and do syntax highlighting
  */
 const useCodeSnippet = ({ id, html, highlightedJsx }: UseCodeSnippetProps) => {
-  const [snippetState, setSnippetState] = useState<SnippetState>(SnippetState.CLOSED);
+  // const [snippetState, setSnippetState] = useState<SnippetState>(SnippetState.CLOSED);
+  const snippetState = SnippetState.CLOSED;
+  const setSnippetState = (test: any) => {};
   const highlightedHtml = html && highlightHtmlSyntax(html);
 
   const snippetIdPrefix = `example-snippet-${id}`;
@@ -46,6 +48,7 @@ const useCodeSnippet = ({ id, html, highlightedJsx }: UseCodeSnippetProps) => {
   }
 
   return {
+    // codeToggles: <span>Toggles!</span>,
     codeToggles: (
       <>
         {buttons.map((buttonConfig) => (
@@ -70,6 +73,7 @@ const useCodeSnippet = ({ id, html, highlightedJsx }: UseCodeSnippetProps) => {
         ))}
       </>
     ),
+    // codeSnippets: <span>Snippets!</span>,
     codeSnippets: (
       <>
         {snippets.map((snippetConfig) => (
