@@ -24,7 +24,7 @@ export interface TableOfContentsProps {
   slug?: string;
 }
 
-export type TableOfContentsFeedbackProps = Pick<TableOfContentsProps, 'slug'>;
+export type TableOfContentsFeedbackProps = Pick<TableOfContentsProps, 'slug' | 'title'>;
 
 export const TableOfContentsList = ({ items, level, className = '' }: TableOfContentsProps) => {
   const itemClasses =
@@ -44,10 +44,24 @@ export const TableOfContentsList = ({ items, level, className = '' }: TableOfCon
   );
 };
 
+function getDiscussionLink(slug?: string): string | undefined {
+  const base = 'https://github.com/CMSgov/design-system/discussions/new';
+  const withLabel = (labelName: string) => `labels=${encodeURIComponent(labelName)}`;
+  if (slug.includes('components/')) {
+    return `${base}?${withLabel('Type: Component')}`;
+  }
+  if (slug.includes('patterns/')) {
+    return `${base}?${withLabel('Type: Pattern')}`;
+  }
+  if (slug.includes('utilities/')) {
+    return `${base}?${withLabel('Type: Utility')}`;
+  }
+}
+
 /*
  * Feedback section
  */
-export const TableOfContentsFeedback = ({ slug }: TableOfContentsFeedbackProps) => (
+export const TableOfContentsFeedback = ({ slug, title }: TableOfContentsFeedbackProps) => (
   <>
     <h2 className="c-table-of-contents__heading ds-u-margin-y--0 ds-u-md-margin-top--6 ds-u-font-size--base">
       Have ideas?{' '}
@@ -56,9 +70,14 @@ export const TableOfContentsFeedback = ({ slug }: TableOfContentsFeedbackProps) 
       <li>
         <a href="/feedback">Propose a change</a>
       </li>
-      <li>
-        <a href="https://github.com/CMSgov/design-system/discussions">Join in the discussion</a>
-      </li>
+      {getDiscussionLink(slug) && (
+        <li
+          key="discussion-link"
+          className="c-table-of-contents__list-item c-table-of-contents__list-item--no-marker"
+        >
+          <a href={getDiscussionLink(slug)}>Join in the discussion for &apos;{title}&apos;</a>
+        </li>
+      )}
       {typeof slug !== 'undefined' ? (
         <li>
           <a
@@ -75,7 +94,7 @@ export const TableOfContentsFeedback = ({ slug }: TableOfContentsFeedbackProps) 
 /**
  * The Desktop version of the table of contents
  */
-const TableOfContents = ({ items, slug }: TableOfContentsProps) => {
+const TableOfContents = ({ items, slug, title }: TableOfContentsProps) => {
   const level = 1;
   return items.length ? (
     <div className="c-table-of-contents">
@@ -83,7 +102,7 @@ const TableOfContents = ({ items, slug }: TableOfContentsProps) => {
         On this page{' '}
       </h2>
       <TableOfContentsList items={items} level={level} />
-      <TableOfContentsFeedback slug={slug} />
+      <TableOfContentsFeedback slug={slug} title={title} />
     </div>
   ) : null;
 };
