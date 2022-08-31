@@ -11,7 +11,8 @@ const QUERY_PARAM_NAME = 'theme';
  * and return found value
  */
 function useTheme() {
-  const [theme, setTheme] = useState('core');
+  console.log(getQueryParamValue(QUERY_PARAM_NAME));
+  const [theme, setTheme] = useState(getQueryParamValue(QUERY_PARAM_NAME) ?? 'core');
 
   useEffect(() => {
     const themeQueryParam = getQueryParamValue(QUERY_PARAM_NAME);
@@ -36,6 +37,7 @@ function useTheme() {
       setTheme(theme);
     }
   }, []);
+
   return theme;
 }
 
