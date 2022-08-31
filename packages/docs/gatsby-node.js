@@ -46,14 +46,17 @@ exports.createPages = ({ graphql, actions }) => {
 
     // Create blog post pages.
     result.data.allMdx.edges.forEach((edge) => {
-      createPage({
-        // Path for this page -- the slug with positioning markers removed
-        path: edge.node.slug.replace(/\d+_/g, ''),
-        component: infoPageTemplate,
-        // props passed to template
-        context: {
-          id: edge.node.id,
-        },
+      ['core', 'healthcare', 'medicare'].forEach((theme) => {
+        const query = theme !== 'core' ? `?theme=${theme}` : '';
+        createPage({
+          // Path for this page -- the slug with positioning markers removed
+          path: edge.node.slug.replace(/\d+_/g, '') + query,
+          component: infoPageTemplate,
+          // props passed to template
+          context: {
+            id: edge.node.id,
+          },
+        });
       });
     });
   });
