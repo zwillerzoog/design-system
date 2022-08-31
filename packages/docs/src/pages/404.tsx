@@ -7,7 +7,7 @@ import useTheme from '../helpers/useTheme';
 import ContentRenderer from '../components/ContentRenderer';
 
 const NotFoundPage = ({ data, location }: MdxQuery) => {
-  const theme = useTheme();
+  const theme = useTheme(location);
   return (
     <Layout frontmatter={data.mdx.frontmatter} location={location} theme={theme}>
       <ContentRenderer data={data.mdx.body} theme={theme} />

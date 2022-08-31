@@ -131,7 +131,7 @@ const DocSiteNavigation = ({ location }: DocSiteNavProps) => {
         hidden={isMobile && !isMobileNavOpen}
         className="ds-u-padding--2 ds-u-md-padding--0"
       >
-        <ThemeSwitcher />
+        <ThemeSwitcher location={location} />
         <VerticalNav
           className="c-navigation__link-list"
           items={navItems}

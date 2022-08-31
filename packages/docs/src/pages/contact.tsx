@@ -8,7 +8,7 @@ import ContentRenderer from '../components/ContentRenderer';
 
 const ContactPage = ({ data, location }: MdxQuery) => {
   const { slug } = data.mdx;
-  const theme = useTheme();
+  const theme = useTheme(location);
   return (
     <Layout
       frontmatter={data.mdx.frontmatter}

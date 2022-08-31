@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getQueryParamValue, setQueryParam } from './urlUtils';
+import { LocationInterface } from './graphQLTypes';
 
 const STORAGE_TOKEN_NAME = 'cmsds_theme';
 const QUERY_PARAM_NAME = 'theme';
@@ -10,18 +11,17 @@ const QUERY_PARAM_NAME = 'theme';
  * and return 'core. If either is found, set localStorage if needed
  * and return found value
  */
-function useTheme() {
-  console.log(getQueryParamValue(QUERY_PARAM_NAME));
-  const [theme, setTheme] = useState(getQueryParamValue(QUERY_PARAM_NAME) ?? 'core');
+function useTheme(location: LocationInterface) {
+  const [theme, setTheme] = useState(getQueryParamValue(location, QUERY_PARAM_NAME) ?? 'core');
 
   useEffect(() => {
-    const themeQueryParam = getQueryParamValue(QUERY_PARAM_NAME);
+    const themeQueryParam = getQueryParamValue(location, QUERY_PARAM_NAME);
 
     if (typeof window !== 'undefined') {
       // query param found, set in local storage and return it
       if (themeQueryParam !== null) {
         localStorage.setItem(STORAGE_TOKEN_NAME, themeQueryParam);
-        setTheme(themeQueryParam);
+        if (theme !== themeQueryParam) setTheme(themeQueryParam);
       } else {
         let newTheme = 'core';
         // no query param, so check localStorage theme. if found, return otherwise return 'core'
@@ -32,9 +32,6 @@ function useTheme() {
         setQueryParam(QUERY_PARAM_NAME, newTheme);
         setTheme(newTheme);
       }
-    } else {
-      // browser not found, return 'core'
-      setTheme(theme);
     }
   }, []);
 

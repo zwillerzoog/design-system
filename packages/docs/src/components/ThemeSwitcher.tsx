@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dropdown } from '@cmsgov/design-system';
 import useTheme from '../helpers/useTheme';
+import { LocationInterface } from '../helpers/graphQLTypes';
 import { setQueryParam } from '../helpers/urlUtils';
 
 const themeOptions = [
@@ -8,12 +9,17 @@ const themeOptions = [
   { label: 'Healthcare', value: 'healthcare' },
   { label: 'Medicare', value: 'medicare' },
 ];
+
+interface ThemeSwitcherProps {
+  location: LocationInterface;
+}
+
 /**
  * Theme Switcher
  * The dropdown component to switch the theme of the documentation site
  */
-const ThemeSwitcher = () => {
-  const currentTheme = useTheme();
+const ThemeSwitcher = ({ location }: ThemeSwitcherProps) => {
+  const currentTheme = useTheme(location);
 
   const onThemeChange = (e) => {
     // set the query param and reload the page for re-render

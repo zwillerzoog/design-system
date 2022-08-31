@@ -9,7 +9,7 @@ import ContentRenderer from '../components/ContentRenderer';
 // Main landing page for site
 const IndexPage = ({ data, location }: MdxQuery) => {
   const { slug } = data.mdx;
-  const theme = useTheme();
+  const theme = useTheme(location);
 
   return (
     <Layout
