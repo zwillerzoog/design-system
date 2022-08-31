@@ -61,11 +61,14 @@ const Layout = ({
   const pageId = slug ? `page--${slug.replace('/', '_')}` : null;
 
   return (
-    <div className="ds-base" id={pageId} data-theme={theme}>
+    <div className="ds-base" id={pageId}>
       <Helmet
         title={tabTitle}
         htmlAttributes={{
           lang: 'en',
+        }}
+        bodyAttributes={{
+          'data-theme': theme,
         }}
       >
         <script>{`window.tealiumEnvironment = "${env}";`}</script>
