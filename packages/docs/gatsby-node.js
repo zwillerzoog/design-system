@@ -44,13 +44,11 @@ exports.createPages = ({ graphql, actions }) => {
       throw result.errors;
     }
 
-    // Create blog post pages.
     result.data.allMdx.edges.forEach((edge) => {
-      ['core', 'healthcare', 'medicare'].forEach((theme) => {
-        const query = theme !== 'core' ? `?theme=${theme}` : '';
+      ['', 'core', 'healthcare', 'medicare'].forEach((theme) => {
         createPage({
           // Path for this page -- the slug with positioning markers removed
-          path: edge.node.slug.replace(/\d+_/g, '') + query,
+          path: edge.node.slug.replace(/\d+_/g, '') + (theme && `/${theme}`),
           component: infoPageTemplate,
           // props passed to template
           context: {

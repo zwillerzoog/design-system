@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import { getQueryParamValue, setQueryParam } from './urlUtils';
+import { getThemeFromPath, addThemePath } from './urlUtils';
 import { LocationInterface } from './graphQLTypes';
 
 const STORAGE_TOKEN_NAME = 'cmsds_theme';
-const QUERY_PARAM_NAME = 'theme';
 
 /**
  * Checks for current theme using query params and then localStorage
@@ -12,25 +11,31 @@ const QUERY_PARAM_NAME = 'theme';
  * and return found value
  */
 function useTheme(location: LocationInterface) {
-  const [theme, setTheme] = useState(getQueryParamValue(location, QUERY_PARAM_NAME) ?? 'core');
+  const [theme, setTheme] = useState(getThemeFromPath(location) ?? 'core');
+  console.log(getThemeFromPath(location));
 
   useEffect(() => {
-    const themeQueryParam = getQueryParamValue(location, QUERY_PARAM_NAME);
+    const themeFromLocation = getThemeFromPath(location);
+    console.log(`themeFromLocation: ${themeFromLocation}`);
 
     if (typeof window !== 'undefined') {
-      // query param found, set in local storage and return it
-      if (themeQueryParam !== null) {
-        localStorage.setItem(STORAGE_TOKEN_NAME, themeQueryParam);
-        if (theme !== themeQueryParam) setTheme(themeQueryParam);
-      } else {
-        let newTheme = 'core';
-        // no query param, so check localStorage theme. if found, return otherwise return 'core'
-        if (STORAGE_TOKEN_NAME in localStorage) {
-          newTheme = localStorage.getItem(STORAGE_TOKEN_NAME);
+      if (themeFromLocation) {
+        // Found a theme in the path, so set in local storage and return it
+        localStorage.setItem(STORAGE_TOKEN_NAME, themeFromLocation);
+        if (theme !== themeFromLocation) {
+          setTheme(themeFromLocation);
         }
-        // if no query param val was set, make sure to set it to the value in local storage or 'core' by default
-        setQueryParam(QUERY_PARAM_NAME, newTheme);
+      } else {
+        // No theme found in the path, so check localStorage or fall back to default
+        let newTheme = 'core';
+        const localStorageTheme = localStorage.getItem(STORAGE_TOKEN_NAME);
+        if (['core', 'healthcare', 'medicare'].includes(localStorageTheme)) {
+          newTheme = localStorageTheme;
+        }
+        // Add it to the path and set locally
+        addThemePath(newTheme);
         setTheme(newTheme);
+        localStorage.setItem(STORAGE_TOKEN_NAME, newTheme);
       }
     }
   }, []);

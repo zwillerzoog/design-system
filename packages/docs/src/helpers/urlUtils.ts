@@ -1,5 +1,5 @@
 import join from 'url-join';
-import { withPrefix } from 'gatsby';
+import { withPrefix, navigate } from 'gatsby';
 import { LocationInterface } from './graphQLTypes';
 
 export function makeGithubUrl(pathname = '') {
@@ -29,43 +29,37 @@ export function makePageUrl(fileRelativePath, location: LocationInterface) {
   return join('/', fileRelativePath.replace('.mdx', ''), '/', location.search);
 }
 
-/**
- * Gets value of query parameter from current browser URL
- *
- * @param {string} location - Gatsby location object
- * @param {string} value - Query string key to search for
- * @returns Value of key if found, null if not
- */
-export function getQueryParamValue(location: LocationInterface, value: string) {
-  const query = {};
-  location.search
-    .substring(1)
-    .split('&')
-    .map((item) => {
-      query[item.split('=')[0]] = item.split('=')[1];
-    });
-  if (query[value]) {
-    return query[value];
-  } else {
-    return null;
-  }
+const RE_PATH_THEME = /\/(healthcare|medicare|core)(((\?.*)?)|(\/?))$/;
+
+export function getThemeFromPath(location: LocationInterface): string | undefined {
+  console.log(location.pathname, RE_PATH_THEME.exec(location.pathname));
+  const match = RE_PATH_THEME.exec(location.pathname);
+  if (!match) return undefined;
+  const [, theme] = match;
+  return theme;
+
+  // const tail = location.pathname.split('/').slice(-1)[0];
+  // const themeMatch = themes.find(theme => {
+  //   return tail === theme || tail?.startsWith(tail + '?') || tail?.startsWith()
+  //   if (tail?.startsWith(theme)) {
+  //     const extra = tail.charAt(theme.length);
+  //     if (!extra || extra === "/" || extra === "?") return theme;
+  //   }
+  //   return false;
+  // });
+  // return themeMatch;
 }
 
-/**
- * setQueryParam
- * @param name - name of query parameter
- * @param value - value of query parameter
- * @param reloadPage - describes if the page should reload after update, or update quietly.
- */
-export function setQueryParam(name: string, value: string, reloadPage: boolean = false) {
-  if (typeof window !== 'undefined') {
-    const url = new URL(window.location.toString());
-    url.searchParams.set(name, value);
+export function addThemePath(theme: string, reloadPage: boolean = false) {
+  if (typeof window === 'undefined') return;
 
-    if (reloadPage) {
-      window.location.search = url.searchParams.toString();
-    } else {
-      window.history.replaceState({}, '', url);
-    }
-  }
+  const url = new URL(window.location.toString());
+  url.pathname = url.pathname + (url.pathname.endsWith('/') ? theme : '/' + theme) + '/';
+
+  navigate(url.toString(), { replace: !reloadPage });
+  // if (reloadPage) {
+  //   window.location.pathname = url.pathname;
+  // } else {
+  //   window.history.replaceState({}, '', url);
+  // }
 }

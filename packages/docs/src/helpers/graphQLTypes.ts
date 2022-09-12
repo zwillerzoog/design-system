@@ -1,4 +1,7 @@
 import { PageStatus } from '../components/Layout';
+import { WindowLocation } from '@reach/router';
+
+export type LocationInterface = WindowLocation;
 
 export interface TableOfContentsItem {
   url: string;
@@ -11,14 +14,6 @@ export interface ComponentLinksInterface {
   githubLink?: string;
   sketchLink?: string;
   storybookLink?: string;
-}
-
-/**
- * @see https://www.gatsbyjs.com/docs/location-data-from-props/
- */
-export interface LocationInterface {
-  pathname: string;
-  search?: string;
 }
 
 export interface FrontmatterInterface {
