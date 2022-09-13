@@ -5,7 +5,7 @@ import { t } from '../i18n';
 export type BadgeSize = 'big';
 export type BadgeVariation = 'info' | 'success' | 'warn' | 'alert';
 
-export interface BadgeProps {
+interface BaseBadgeProps {
   /**
    * Additional classes to be added to the root badge element.
    * Useful for adding utility classes.
@@ -25,9 +25,10 @@ export interface BadgeProps {
   variation?: BadgeVariation;
 }
 
-export const Badge: React.FC<React.ComponentPropsWithRef<'span'> & BadgeProps> = (
-  props: BadgeProps
-) => {
+export type BadgeProps = BaseBadgeProps &
+  Omit<React.ComponentPropsWithRef<'span'>, keyof BaseBadgeProps>;
+
+export const Badge: React.FC<BadgeProps> = (props: BadgeProps) => {
   const { className = '', children, size, variation, ...others } = props;
   const sizeClasses = { big: 'ds-c-badge--big' };
 
