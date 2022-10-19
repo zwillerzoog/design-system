@@ -5,11 +5,11 @@ import uniqueId from 'lodash/uniqueId';
 import { FormLabelProps } from '../FormLabel/FormLabel';
 import { errorPlacementDefault } from '../flags';
 
-// TODO: Reimplement focusTrigger in another place, like another hook
-
-// Some of the FormLabel's props we pass on to the component prop definitions.
-// TODO: This could use a better name
-type PassedOnFormLabelProps = Omit<
+/**
+ * Collect those of FormLabel's props that we want to we pass on to the
+ * component prop definitions through FormFieldProps.
+ */
+type PropsFromFormLabel = Omit<
   FormLabelProps,
   'children' | 'className' | 'component' | 'fieldId' | 'id'
 >;
@@ -18,7 +18,7 @@ type PassedOnFormLabelProps = Omit<
  * This is the set of public-facing props that each component that uses `useFormLabel`
  * can include in its own props definition.
  */
-export interface FormFieldProps extends PassedOnFormLabelProps {
+export interface FormFieldProps extends PropsFromFormLabel {
   /**
    * Additional classes to be added to the root element.
    */
