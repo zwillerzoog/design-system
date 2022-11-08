@@ -136,13 +136,9 @@ export const Tooltip = (props: TooltipProps) => {
     }
   };
 
-  const handleBlur = (event: MouseEvent) => {
+  const handleBlur = (event: Event) => {
     setTimeout(() => {
-      const focusedInsideTrigger = triggerElement.current?.contains(event.target);
-      const focusedInsideTooltip = tooltipElement.current?.contains(event.target);
-      if (!focusedInsideTrigger && !focusedInsideTooltip && !isHover) {
-        setActive(false);
-      }
+      if (!isHover && event.currentTarget !== event.target) setActive(false);
     }, 10);
   };
 
@@ -338,6 +334,7 @@ export const Tooltip = (props: TooltipProps) => {
           <FocusTrap
             active={active}
             focusTrapOptions={{
+              fallbackFocus: () => document.getElementById(`${id.current}`).parentElement,
               initialFocus: () => document.getElementById(`${id.current}`),
               clickOutsideDeactivates: true,
             }}
