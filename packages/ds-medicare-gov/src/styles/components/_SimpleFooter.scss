@@ -15,10 +15,12 @@
 
   .SimpleFooter__linkButton,
   a {
-    @extend .mct-p3;
-    color: $color-base !important;
+    color: $color-base;
     display: inline-block;
     font-size: 14px;
+    line-height: 20px;
+    margin-bottom: $spacer-1;
+    margin-top: 0;
     padding: 0;
     text-decoration: none;
 
@@ -35,8 +37,7 @@
 
   .SimpleFooter__linkButton {
     background-color: transparent;
-    border-radius: 0 !important;
-    color: $color-base !important;
+    border-radius: 0;
     cursor: pointer;
 
     &:hover {
