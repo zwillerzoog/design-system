@@ -36,6 +36,7 @@
     "test:unit:update": "yarn test:unit --updateSnapshot",
     "test:browser": "docker run --rm --network host -v $(pwd):/work/ -w /work/ mcr.microsoft.com/playwright:v1.25.0-focal yarn playwright test --config tests/browser/playwright.config.ts",
     "test:browser:update": "yarn build:storybook && docker run --rm --network host -v $(pwd):/work/ -w /work/ mcr.microsoft.com/playwright:v1.25.0-focal yarn playwright test --config tests/browser/playwright.config.ts -u",
+    "test:browser:smoke": "docker run --rm --network host -v $(pwd):/work/ --env SMOKE=true -w /work/ mcr.microsoft.com/playwright:v1.25.0-focal yarn playwright test --config tests/browser/playwright.config.ts",
     "type-check": "yarn tsc --noEmit"
   },
   "husky": {
