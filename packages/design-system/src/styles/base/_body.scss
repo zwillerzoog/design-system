@@ -1,4 +1,5 @@
 @import '../settings/index.scss';
+@import 'typography.scss';
 
 %ds-base {
   font-family: $font-sans;
@@ -15,4 +16,29 @@
   @extend %ds-base;
   background-color: $color-background-inverse;
   color: $color-base-inverse;
+}
+
+.ds-content {
+  * {
+    margin-bottom: 0 !important;
+  }
+
+  > h1 {
+    @extend .ds-text-heading--3xl;
+  }
+  > h2 {
+    @extend .ds-text-heading--2xl;
+  }
+  > h3 {
+    @extend .ds-text-heading--xl;
+  }
+  > h4 {
+    @extend .ds-text-heading--lg;
+  }
+  > h5 {
+    @extend .ds-text-heading--md;
+  }
+  > h6 {
+    @extend .ds-text-heading--sm;
+  }
 }
