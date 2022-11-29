@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { TableOfContentsItem } from '../../helpers/graphQLTypes';
 
 function cleanTitle(title: string) {
@@ -31,19 +31,27 @@ export interface TableOfContentsProps {
 export type TableOfContentsFeedbackProps = Pick<TableOfContentsProps, 'slug'>;
 
 export const TableOfContentsList = ({ items, level, className = '' }: TableOfContentsProps) => {
+  const [hiddenHeadings, setHiddenHeadings] = useState([]);
   const itemClasses =
     level == 1
       ? 'c-table-of-contents__list-item c-table-of-contents__list-item--no-marker'
       : 'c-table-of-contents__list-item';
 
+  useEffect(() => {
+    setHiddenHeadings(items.map((item) => item.url).filter((url) => !document.querySelector(url)));
+  }, [items, setHiddenHeadings]);
+  console.log(hiddenHeadings);
+
   return (
     <ul role="list" className={`c-table-of-contents__list ds-u-padding-right--0 ${className}`}>
-      {items.map((item) => (
-        <li key={item.title} className={itemClasses}>
-          <a href={item.url}>{cleanTitle(item.title)}</a>
-          {item.items && <TableOfContentsList items={item.items} level={level + 1} />}
-        </li>
-      ))}
+      {items.map((item) =>
+        hiddenHeadings.includes(item.url) ? null : (
+          <li key={item.title} className={itemClasses}>
+            <a href={item.url}>{cleanTitle(item.title)}</a>
+            {item.items && <TableOfContentsList items={item.items} level={level + 1} />}
+          </li>
+        )
+      )}
     </ul>
   );
 };
