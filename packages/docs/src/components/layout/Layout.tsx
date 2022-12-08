@@ -66,6 +66,7 @@ const Layout = ({
           lang: 'en',
         }}
       >
+        <link rel="stylesheet" href="/storybook/main.css" />
         <script>{`window.tealiumEnvironment = "${env}";`}</script>
         <script src="//tags.tiqcdn.com/utag/cmsgov/cms-design/prod/utag.sync.js"></script>
       </Helmet>
