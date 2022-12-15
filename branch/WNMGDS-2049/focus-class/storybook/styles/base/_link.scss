@@ -20,12 +20,7 @@
   }
   &:focus,
   &:focus:visited {
-    background-color: $color-focus-light;
-    box-shadow: none;
-    color: initial;
-    outline: 3px solid $color-focus-dark;
-    outline-offset: 1px;
-    text-decoration: underline;
+    @include focus-styles-link;
   }
 
   &:active {
@@ -56,12 +51,8 @@
 
   &:focus,
   &:focus:visited {
-    background-color: $color-focus-light;
-    box-shadow: none;
+    @include focus-styles-link;
     color: $link__color;
-    outline: 3px solid $color-focus-dark;
-    outline-offset: 1px;
-    text-decoration: underline;
   }
 
   &:active {

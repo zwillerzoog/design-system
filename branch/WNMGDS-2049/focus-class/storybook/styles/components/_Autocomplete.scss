@@ -24,8 +24,7 @@ $autocomplete-list-border: $autocomplete-list-border-width $autocomplete-list-bo
     }
   }
   input:focus {
-    position: relative;
-    z-index: 100;
+    @include focus-styles-position;
   }
 }
 
