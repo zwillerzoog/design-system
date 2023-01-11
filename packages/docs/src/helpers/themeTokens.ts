@@ -29,6 +29,19 @@ export function getComponentVariables(themeName: ThemeName, componentName: strin
   return themes[themeName].components[componentName];
 }
 
-export function getSystemColorTokenFromValue(themeName: ThemeName, colorValue: string): string {
+export function getSystemColorTokenFromValue(colorValue: string): string {
   return findKey(colorTokens, (value) => String(value) === colorValue);
+}
+
+export function getUsedSystemColors(themeName: ThemeName): string[] {
+  const colors = new Map<string, boolean>();
+
+  for (const colorValue of Object.values(themes[themeName].color)) {
+    const name = getSystemColorTokenFromValue(String(colorValue));
+    if (name) {
+      colors.set(name, true);
+    }
+  }
+
+  return Array.from(colors.keys());
 }

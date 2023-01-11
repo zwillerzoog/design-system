@@ -73,7 +73,7 @@ const customComponents = (theme) => ({
   ol: (props) => TextWithMaxWidth(props, 'ol'),
   EmbeddedExample,
   MaturityChecklist,
-  ColorRamps,
+  ColorRamps: (props) => <ColorRamps theme={theme} {...props} />,
   StorybookExample: (props) => <StorybookExample theme={theme} {...props} />,
   PropTable: (props) => <PropTable theme={theme} {...props} />,
   PropTableHtmlElementRow: (props) => <PropTableHtmlElementRow theme={theme} {...props} />,

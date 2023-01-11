@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import colorTokens from 'design-system-tokens/src/tokens/color';
 import { hexHasTransparency, pickTextColor } from 'design-system-tokens/src/lib/utility';
 import { HexValue } from 'design-system-tokens/src/lib/types';
+import { getUsedSystemColors, ThemeName } from '../../helpers/themeTokens';
 
 interface SwatchColor {
   name: string;
@@ -24,67 +25,75 @@ const renderTransparencyPattern = (id: string) => (
   </pattern>
 );
 
+interface ColorRampsProps {
+  theme: string;
+}
+
 /**
  * Component for showing named colors in all their shades
  */
-const ColorRamps = () => (
-  <div className="ds-u-display--flex ds-u-flex-wrap--wrap c-color-ramps">
-    {Object.entries(swatches).map(([swatchName, swatchColors], i) => {
-      const patternId = `pattern-checkers-${i}`;
-      return (
-        <div className="c-color-ramp__wrapper" key={swatchName}>
-          <h2 className="ds-u-text-transform--capitalize" id={swatchName}>
-            {swatchName}
-          </h2>
-          <div className="c-color-ramp">
-            <svg className="c-color-ramp__transparency-pattern" viewBox="0 0 256 200" width="256">
-              <defs>{renderTransparencyPattern(patternId)}</defs>
-              <rect x="0" y="0" width="100%" height="100%" fill={`url(#${patternId})`}></rect>
-            </svg>
-            {swatchColors.map(({ name, value }) => {
-              const nameId = `color-name-${name}`;
-              const valueId = `color-value-${value}`;
-              const shortName = name.split('-')[1] ?? name;
-              const textColor = pickTextColor(
-                value as HexValue,
-                'var(--color-base-inverse)',
-                'var(--color-base)'
-              );
-              const codeStyle: React.CSSProperties = hexHasTransparency(value as HexValue)
-                ? {}
-                : {
-                    color: textColor,
-                    background: 'none',
-                  };
+const ColorRamps = ({ theme }: ColorRampsProps) => {
+  const usedColors = getUsedSystemColors(theme as ThemeName);
+  return (
+    <div className="ds-u-display--flex ds-u-flex-wrap--wrap c-color-ramps">
+      {Object.entries(swatches).map(([swatchName, swatchColors], i) => {
+        const patternId = `pattern-checkers-${i}`;
+        return (
+          <div className="c-color-ramp__wrapper" key={swatchName}>
+            <h2 className="ds-u-text-transform--capitalize" id={swatchName}>
+              {swatchName}
+            </h2>
+            <div className="c-color-ramp">
+              <svg className="c-color-ramp__transparency-pattern" viewBox="0 0 256 200" width="256">
+                <defs>{renderTransparencyPattern(patternId)}</defs>
+                <rect x="0" y="0" width="100%" height="100%" fill={`url(#${patternId})`}></rect>
+              </svg>
+              {swatchColors.map(({ name, value }) => {
+                const nameId = `color-name-${name}`;
+                const valueId = `color-value-${value}`;
+                const shortName = name.split('-')[1] ?? name;
+                const textColor = pickTextColor(
+                  value as HexValue,
+                  'var(--color-base-inverse)',
+                  'var(--color-base)'
+                );
+                const codeStyle: React.CSSProperties = hexHasTransparency(value as HexValue)
+                  ? {}
+                  : {
+                      color: textColor,
+                      background: 'none',
+                    };
 
-              return (
-                <div className="c-color-ramp__item" key={`${name}-${value}`}>
-                  <svg aria-labelledby={`${nameId} ${valueId}`}>
-                    <rect x="0" y="-5%" width="100%" height="110%" fill={value} />
-                  </svg>
-                  <code
-                    className="ds-u-display--block"
-                    id={nameId}
-                    aria-describedby={valueId}
-                    style={codeStyle}
-                  >
-                    {shortName}
-                  </code>
-                  <code
-                    className="ds-u-display--block ds-u-margin-left--1"
-                    id={valueId}
-                    style={codeStyle}
-                  >
-                    {value}
-                  </code>
-                </div>
-              );
-            })}
+                return (
+                  <div className="c-color-ramp__item" key={`${name}-${value}`}>
+                    <svg aria-labelledby={`${nameId} ${valueId}`}>
+                      <rect x="0" y="-5%" width="100%" height="110%" fill={value} />
+                    </svg>
+                    <code
+                      className="ds-u-display--block"
+                      id={nameId}
+                      aria-describedby={valueId}
+                      style={codeStyle}
+                    >
+                      {shortName}
+                      {usedColors.includes(name) && '* '}
+                    </code>
+                    <code
+                      className="ds-u-display--block ds-u-margin-left--1"
+                      id={valueId}
+                      style={codeStyle}
+                    >
+                      {value}
+                    </code>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      );
-    })}
-  </div>
-);
+        );
+      })}
+    </div>
+  );
+};
 
 export default ColorRamps;
