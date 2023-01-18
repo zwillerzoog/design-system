@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TableCaption applies additional classNames to caption 1`] = `
+<caption
+  class="ds-c-table__caption foo-caption"
+>
+  Foo
+</caption>
+`;
