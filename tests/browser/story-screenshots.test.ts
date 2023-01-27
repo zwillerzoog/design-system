@@ -1,7 +1,8 @@
+import themeData from '../../themes.json';
 import { test, expect } from '@playwright/test';
 import { stories } from '../../storybook-static/stories.json';
 
-const themes = ['core', 'healthcare', 'medicare'];
+const themes = Object.keys(themeData);
 const storySkipList = [
   'components-dialog--prevent-scroll-example',
   'components-idle-timeout--default',

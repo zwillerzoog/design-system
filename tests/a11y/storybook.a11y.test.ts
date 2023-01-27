@@ -1,8 +1,10 @@
 import expectNoAxeViolations from './expectNoAxeViolations';
+import themeData from '../../themes.json';
 import { test } from '@playwright/test';
 import { stories } from '../../storybook-static/stories.json';
 
-const themes = ['core', 'healthcare' /* 'medicare' */];
+// TODO: Fix problems with medicare so we can stop ignoring it
+const themes = Object.keys(themeData).filter((theme) => theme !== 'medicare');
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
