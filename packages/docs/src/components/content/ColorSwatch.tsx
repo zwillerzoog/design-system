@@ -5,7 +5,7 @@ interface ColorSwatchProps extends React.ComponentPropsWithRef<'svg'> {
   title?: string;
 }
 
-const ColorSwatch = ({ colorTokenName, title }: ColorSwatchProps) => (
+const ColorSwatch = ({ colorTokenName, title, ...attrs }: ColorSwatchProps) => (
   <svg
     fill={`var(--color-${colorTokenName})`}
     stroke="rgb(0 0 0 / 20%)"
