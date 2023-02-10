@@ -103,8 +103,6 @@
 --color-warn-lighter: #fce28f;
 --color-warn-lightest: #fef9e9;
 --color-visited: #4c2c92;
---font-body: 'Open Sans', Helvetica, sans-serif;
---font-heading: 'Open Sans', Helvetica, sans-serif;
 --font-sans: 'Open Sans', Helvetica, sans-serif;
 --font-serif: Bitter, Georgia, serif;
 --font-family-open-sans: 'Open Sans', Helvetica, sans-serif;
@@ -512,7 +510,7 @@
 --typography-heading-lg__font-weight: 700;
 --typography-heading-md__font-weight: 700;
 --typography-heading-sm__font-weight: 400;
---typography-body__font-family: inherit;
+--typography-body__font-family: 'Open Sans', Helvetica, sans-serif;
 --usa-banner__background-color: #f2f2f2;
 --usa-banner__color: #000000;
 --usa-banner-close__background-color: #a6a6a6;

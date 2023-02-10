@@ -2,11 +2,10 @@ import React from 'react';
 import { Typography } from './resetTypography.stories';
 import { Lists } from './resetLists.stories';
 import { FormElements } from './resetFormEls.stories';
-import { DisclosureElements } from './resetDisclosureEls.stories';
 import { Tables } from './resetTables.stories';
 
 export default {
-  title: 'Reset / Overview',
+  title: 'Reset/Overview',
 };
 
 export const Overview = () => {
@@ -20,7 +19,6 @@ export const Overview = () => {
       <Typography />
       <Lists />
       <FormElements />
-      <DisclosureElements />
       <Tables />
     </>
   );
