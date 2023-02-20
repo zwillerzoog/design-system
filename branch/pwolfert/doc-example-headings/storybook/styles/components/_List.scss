@@ -1,0 +1,21 @@
+@use '../layout' as *;
+@use '../mixins';
+
+.ds-c-list {
+  margin-bottom: $spacer-2;
+  margin-top: $spacer-2;
+  padding-left: $spacer-4;
+
+  li {
+    line-height: var(--font-line-height-base);
+    margin-bottom: $spacer-1;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.ds-c-list--bare {
+  @include mixins.ds-unstyled-list;
+}
