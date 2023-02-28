@@ -1,0 +1,156 @@
+@use '../mixins';
+@use '../layout' as *;
+
+%nav-item-hover {
+  background-color: var(--vertical-nav-item__background-color--hover);
+  color: var(--vertical-nav-item__color--hover);
+  text-decoration: none;
+}
+%nav-item-focus {
+  @include mixins.focus-styles;
+  @include mixins.focus-styles-position;
+}
+
+.ds-c-vertical-nav {
+  margin: 0;
+
+  > .ds-c-vertical-nav__item {
+    background-color: transparent;
+    border-block-start: 1px solid var(--vertical-nav-item__border-color);
+
+    &:first-child {
+      border-block-start: 0;
+    }
+  }
+
+  @media (-ms-high-contrast: active), (forced-colors: active) {
+    border-block: 1px solid LinkText;
+    border-inline-end: 1px solid LinkText;
+  }
+
+  .ds-c-vertical-nav__item {
+    @media (-ms-high-contrast: active), (forced-colors: active) {
+      border-block: 1px solid LinkText;
+    }
+  }
+}
+
+.ds-c-vertical-nav--collapsed {
+  display: none;
+}
+
+.ds-c-vertical-nav__label,
+.ds-c-vertical-nav__label:visited {
+  border-inline-start: $spacer-half solid transparent;
+  color: var(--vertical-nav-label__color);
+  display: block;
+  line-height: var(--font-line-height-heading);
+  padding: $spacer-1 $spacer-2;
+  text-decoration: none;
+
+  &:hover {
+    @extend %nav-item-hover;
+  }
+  &:focus,
+  &.ds-c-vertical-nav__label--current:focus {
+    @extend %nav-item-focus;
+  }
+}
+
+.ds-c-vertical-nav__label--current.ds-c-vertical-nav__label--parent {
+  @media (-ms-high-contrast: active), (forced-colors: active) {
+    color: window; // Allows parent nav to be legible without obscuring child and grandchild links
+  }
+}
+
+// Subnav toggle
+// This class is applied to a <button>, so we need to reset some styling here...
+.ds-c-vertical-nav__label--parent {
+  background-color: transparent;
+  border-block: 0; // Clear <button> borders (border-left is already set)
+  border-inline-end: 0;
+  border-radius: 0; // Remove default browser radius in Chrome
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  &:hover {
+    @extend %nav-item-hover;
+  }
+
+  &:focus,
+  &.ds-c-vertical-nav__label--current:focus {
+    @extend %nav-item-focus;
+  }
+
+  @media (-ms-high-contrast: active), (forced-colors: active) {
+    background-color: LinkText;
+    forced-color-adjust: none;
+    -ms-high-contrast-adjust: none;
+
+    &:hover,
+    &:focus {
+      background-color: window;
+      color: LinkText;
+      forced-color-adjust: none;
+      -ms-high-contrast-adjust: none;
+      outline: $spacer-half solid LinkText;
+      outline-offset: calc(-1 * #{$spacer-half});
+    }
+  }
+
+  .ds-c-icon {
+    color: var(--vertical-nav-label-icon__color);
+    height: var(--font-size-md);
+    width: var(--font-size-md);
+
+    @media (-ms-high-contrast: active), (forced-colors: active) {
+      path {
+        fill: Window;
+      }
+    }
+  }
+}
+
+.ds-c-vertical-nav__label--current,
+.ds-c-vertical-nav__label--current:visited {
+  border-inline-start-color: var(--vertical-nav-label__border-color--current);
+  color: var(--vertical-nav-label__color--current);
+  font-weight: var(--font-weight-bold);
+
+  @media (-ms-high-contrast: active), (forced-colors: active) {
+    border-inline-start-color: WindowText;
+  }
+}
+
+.ds-c-vertical-nav__subnav {
+  margin: 0;
+
+  .ds-c-vertical-nav__label {
+    font-size: var(--font-size-sm);
+    padding-inline-start: $spacer-3;
+
+    @media (-ms-high-contrast: active), (forced-colors: active) {
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .ds-c-vertical-nav__label--current {
+    border-color: transparent;
+
+    @media (-ms-high-contrast: active), (forced-colors: active) {
+      border-color: WindowText;
+    }
+  }
+
+  .ds-c-vertical-nav__subnav .ds-c-vertical-nav__label {
+    padding-inline-start: $spacer-4;
+  }
+
+  @media (-ms-high-contrast: active), (forced-colors: active) {
+    margin-inline-start: $spacer-2;
+  }
+}

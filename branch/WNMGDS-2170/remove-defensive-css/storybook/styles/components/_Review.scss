@@ -1,0 +1,28 @@
+@use '../layout' as *;
+
+.ds-c-review {
+  border-block-end: 2px solid var(--review__border-color);
+  display: flex;
+  justify-content: space-between;
+  padding-block: $spacer-2;
+
+  @media (-ms-high-contrast: active), (forced-colors: active) {
+    a:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.ds-c-review__content {
+  margin-inline-end: $spacer-2;
+}
+
+.ds-c-review:last-of-type {
+  border-block-end: 0;
+}
+
+.ds-c-review__heading {
+  display: inline-block;
+  font-weight: var(--font-weight-bold);
+  margin-block: 0;
+}

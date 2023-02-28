@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TableHead renders additional attributes 1`] = `
+<thead
+  class="foo-head"
+  role="rowgroup"
+>
+  <tr
+    role="row"
+  >
+    <th
+      class="ds-u-text-align--left"
+      role="columnheader"
+      scope="col"
+    >
+      Column a
+    </th>
+    <th
+      class="ds-u-text-align--left"
+      role="columnheader"
+      scope="col"
+    >
+      Column b
+    </th>
+  </tr>
+</thead>
+`;
