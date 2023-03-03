@@ -1,0 +1,71 @@
+@use '../base' as *;
+
+@each $scale, $size in $spacers {
+  // Example: ds-u-padding--0
+  .ds-u-padding--#{$scale} {
+    // Example: padding: 0 !important;
+    padding: #{$size} !important;
+  }
+
+  .ds-u-padding-top--#{$scale} {
+    padding-block-start: #{$size} !important;
+  }
+
+  .ds-u-padding-right--#{$scale} {
+    padding-inline-end: #{$size} !important;
+  }
+
+  .ds-u-padding-bottom--#{$scale} {
+    padding-block-end: #{$size} !important;
+  }
+
+  .ds-u-padding-left--#{$scale} {
+    padding-inline-start: #{$size} !important;
+  }
+
+  .ds-u-padding-x--#{$scale} {
+    padding-inline: #{$size} !important;
+  }
+
+  .ds-u-padding-y--#{$scale} {
+    padding-block: #{$size} !important;
+  }
+}
+
+@each $breakpoint in map-keys($breakpoints) {
+  $value: map-get($breakpoints, $breakpoint);
+
+  @media (min-width: $value) {
+    @each $scale, $size in $spacers {
+      // Example: ds-u-sm-padding--0
+      .ds-u-#{$breakpoint}-padding--#{$scale} {
+        // Example: padding: 0 !important;
+        padding: #{$size} !important;
+      }
+
+      .ds-u-#{$breakpoint}-padding-top--#{$scale} {
+        padding-block-start: #{$size} !important;
+      }
+
+      .ds-u-#{$breakpoint}-padding-right--#{$scale} {
+        padding-inline-end: #{$size} !important;
+      }
+
+      .ds-u-#{$breakpoint}-padding-bottom--#{$scale} {
+        padding-block-end: #{$size} !important;
+      }
+
+      .ds-u-#{$breakpoint}-padding-left--#{$scale} {
+        padding-inline-start: #{$size} !important;
+      }
+
+      .ds-u-#{$breakpoint}-padding-x--#{$scale} {
+        padding-inline: #{$size} !important;
+      }
+
+      .ds-u-#{$breakpoint}-padding-y--#{$scale} {
+        padding-block: #{$size} !important;
+      }
+    }
+  }
+}

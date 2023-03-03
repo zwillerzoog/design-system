@@ -1,0 +1,559 @@
+@use '../layout' as *;
+@use '../mixins';
+
+// Because import of stylesheets in node_modules would have to be supported by
+// downstream projects--and we have no guarantee that it will--it is necessary
+// for us to define the react-day-picker styles in our own stylesheets. The
+// risk is that if we make changes, they are not guaranteed to work for future
+// versions of this library. To mitigate this risk, we should avoid modifying
+// the source rules.
+// @use 'react-day-picker/dist/style.css';
+
+/* stylelint-disable declaration-no-important, no-duplicate-selectors -- Ignore inlined 3rd party styles */
+:root {
+  --rdp-cell-size: #{$spacer-5};
+  --rdp-accent-color: var(--color-primary);
+  --rdp-background-color: var(--day-picker-button__background-color--hover);
+  /* Added this variable for consistency */
+  --rdp-active-color: var(--color-primary-darkest);
+  /* Outline border for focused elements */
+  --rdp-outline: none;
+  /* Outline border for focused and selected elements */
+  --rdp-outline-selected: none;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                 Start of react-day-picker source styles                     *
+ *                  (Avoid modifying. See comment above.)                      *
+ *                                                                             *
+ *******************************************************************************/
+
+.rdp {
+  margin: 1em;
+}
+
+/* Hide elements for devices that are not screen readers */
+.rdp-vhidden {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: 0 !important;
+  box-sizing: border-box;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  height: 1px !important;
+  margin: 0;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  top: 0;
+  width: 1px !important;
+}
+
+/* Buttons */
+.rdp-button_reset {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background: none;
+  color: inherit;
+  cursor: default;
+  font: inherit;
+  margin: 0;
+  outline: none;
+  padding: 0;
+  position: relative;
+}
+
+.rdp-button {
+  border: 2px solid transparent;
+}
+
+.rdp-button[aria-disabled='true'] {
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.rdp-button:not([aria-disabled='true']) {
+  cursor: pointer;
+}
+
+.rdp-button:focus,
+.rdp-button:active {
+  background-color: var(--rdp-background-color);
+  border: var(--rdp-outline);
+  color: inherit;
+}
+
+.rdp-button:hover:not([aria-disabled='true']) {
+  background-color: var(--rdp-background-color);
+}
+
+.rdp-months {
+  display: flex;
+}
+
+.rdp-month {
+  margin: 0 1em;
+}
+
+.rdp-month:first-child {
+  margin-left: 0;
+}
+
+.rdp-month:last-child {
+  margin-right: 0;
+}
+
+.rdp-table {
+  border-collapse: collapse;
+  margin: 0;
+  max-width: calc(var(--rdp-cell-size) * 7);
+}
+
+.rdp-with_weeknumber .rdp-table {
+  border-collapse: collapse;
+  max-width: calc(var(--rdp-cell-size) * 8);
+}
+
+.rdp-caption {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  text-align: start;
+}
+
+.rdp-multiple_months .rdp-caption {
+  display: block;
+  position: relative;
+  text-align: center;
+}
+
+.rdp-caption_dropdowns {
+  display: inline-flex;
+  position: relative;
+}
+
+.rdp-caption_label {
+  align-items: center;
+  border: 0;
+  border: 2px solid transparent;
+  color: currentColor;
+  display: inline-flex;
+  font-family: inherit;
+  font-size: 140%;
+  font-weight: bold;
+  margin: 0;
+  padding: 0 0.25em;
+  position: relative;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.rdp-nav {
+  white-space: nowrap;
+}
+
+.rdp-multiple_months .rdp-caption_start .rdp-nav {
+  left: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.rdp-multiple_months .rdp-caption_end .rdp-nav {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.rdp-nav_button {
+  align-items: center;
+  border-radius: 100%;
+  display: inline-flex;
+  height: var(--rdp-cell-size);
+  justify-content: center;
+  padding: 0.25em;
+  width: var(--rdp-cell-size);
+}
+
+/* ---------- */
+/* Dropdowns  */
+/* ---------- */
+
+.rdp-dropdown_year,
+.rdp-dropdown_month {
+  align-items: center;
+  display: inline-flex;
+  position: relative;
+}
+
+.rdp-dropdown {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  bottom: 0;
+  cursor: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  left: 0;
+  line-height: inherit;
+  margin: 0;
+  opacity: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.rdp-dropdown[disabled] {
+  color: unset;
+  opacity: unset;
+}
+
+.rdp-dropdown:focus:not([disabled]) + .rdp-caption_label,
+.rdp-dropdown:active:not([disabled]) + .rdp-caption_label {
+  background-color: var(--rdp-background-color);
+  border: var(--rdp-outline);
+  border-radius: 6px;
+}
+
+.rdp-dropdown_icon {
+  margin: 0 0 0 5px;
+}
+
+.rdp-head {
+  border: 0;
+}
+
+.rdp-head_row,
+.rdp-row {
+  height: 100%;
+}
+
+.rdp-head_cell {
+  font-size: 0.75em;
+  font-weight: 700;
+  height: 100%;
+  height: var(--rdp-cell-size);
+  padding: 0;
+  text-align: center;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.rdp-tbody {
+  border: 0;
+}
+
+.rdp-tfoot {
+  margin: 0.5em;
+}
+
+.rdp-cell {
+  height: 100%;
+  height: var(--rdp-cell-size);
+  padding: 0;
+  text-align: center;
+  width: var(--rdp-cell-size);
+}
+
+.rdp-weeknumber {
+  font-size: 0.75em;
+}
+
+.rdp-weeknumber,
+.rdp-day {
+  align-items: center;
+  border: 2px solid transparent;
+  border-radius: 100%;
+  box-sizing: border-box;
+  display: flex;
+  height: var(--rdp-cell-size);
+  justify-content: center;
+  margin: 0;
+  max-width: var(--rdp-cell-size);
+  overflow: hidden;
+  width: var(--rdp-cell-size);
+}
+
+.rdp-day_today:not(.rdp-day_outside) {
+  font-weight: bold;
+}
+
+.rdp-day_selected:not([aria-disabled='true']),
+.rdp-day_selected:focus:not([aria-disabled='true']),
+.rdp-day_selected:active:not([aria-disabled='true']),
+.rdp-day_selected:hover:not([aria-disabled='true']) {
+  background-color: var(--rdp-accent-color);
+  color: white;
+}
+
+.rdp-day_selected:focus:not([aria-disabled='true']) {
+  border: var(--rdp-outline-selected);
+}
+
+.rdp:not([dir='rtl']) .rdp-day_range_start:not(.rdp-day_range_end) {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.rdp:not([dir='rtl']) .rdp-day_range_end:not(.rdp-day_range_start) {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.rdp[dir='rtl'] .rdp-day_range_start:not(.rdp-day_range_end) {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.rdp[dir='rtl'] .rdp-day_range_end:not(.rdp-day_range_start) {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.rdp-day_range_end.rdp-day_range_start {
+  border-radius: 100%;
+}
+
+.rdp-day_range_middle {
+  border-radius: 0;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                  End of react-day-picker source styles                      *
+ *                  (Avoid modifying. See comment above.)                      *
+ *                                                                             *
+ *******************************************************************************/
+
+// Put the month and year dropdowns in a fixed two-column layout so that they
+// don't shift around off center when the month changes (because different months
+// are different lengths).
+.rdp-caption_dropdowns {
+  // Take up as much space between the nav buttons as we have
+  flex-grow: 1;
+}
+// Due to a bug, the library currently only uses "rdp-dropdown_month"
+.rdp-dropdown_month,
+.rdp-dropdown_year {
+  // See comment above about arranging these in fixed columns
+  display: block;
+  width: 50%;
+
+  // TODO: When the bug has been fixed upstream, we can reference "rdp-dropdown_year"
+  // instead. See https://github.com/gpbl/react-day-picker/pull/1466
+  &:nth-child(2) {
+    text-align: end;
+  }
+}
+
+// Apply our focus, hover, and active styles to all the day buttons
+.rdp-button:focus,
+.rdp-button:active {
+  @include mixins.focus-styles;
+}
+.rdp-button:active,
+.rdp-button:active:hover:not([aria-disabled='true']),
+.rdp-day_selected:active:not([aria-disabled='true']),
+.rdp-day_selected:active:hover:not([aria-disabled='true']) {
+  background-color: var(--rdp-active-color);
+  color: white;
+}
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  .rdp-button[aria-disabled='true'] {
+    border-color: GrayText;
+    color: GrayText;
+    opacity: 1;
+  }
+
+  .rdp-day_selected:not([aria-disabled='true']),
+  .rdp-day_selected:focus:not([aria-disabled='true']),
+  .rdp-day_selected:active:not([aria-disabled='true']),
+  .rdp-day_selected:hover:not([aria-disabled='true']) {
+    background-color: Highlight;
+    border-color: Highlight;
+    color: Field;
+    forced-color-adjust: none;
+    -ms-high-contrast-adjust: none;
+  }
+}
+
+// Style the month & year dropdowns
+.rdp-caption_label {
+  border: none;
+  font-size: var(--font-size-xl);
+  padding: 0 $spacer-1;
+}
+.rdp-dropdown:focus:not([disabled]) + .rdp-caption_label,
+.rdp-dropdown:active:not([disabled]) + .rdp-caption_label {
+  @include mixins.focus-styles;
+  background-color: initial;
+}
+.rdp-dropdown_icon.ds-c-icon--arrows-stacked {
+  height: 14px;
+  width: 14px;
+}
+/* stylelint-enable */
+
+// Style the two nav arrows for switching months
+.ds-c-single-input-date-field__nav {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  border-radius: var(--text-input__border-radius);
+  color: var(--color-primary);
+  cursor: pointer;
+  display: inline-block;
+  padding: $spacer-1;
+
+  &:hover:not(:disabled) {
+    background-color: var(--day-picker-button__background-color--hover);
+    color: var(--color-primary-darker); // TODO: Use tokens same as link-hover-color
+  }
+
+  &:focus,
+  &:active:not(:disabled) {
+    @include mixins.focus-styles;
+  }
+
+  &:active:not(:disabled) {
+    background-color: var(--button-solid__background-color--active);
+    color: var(--color-white);
+  }
+
+  .ds-c-icon--arrow {
+    height: 19px;
+    width: 19px;
+  }
+
+  &:disabled {
+    color: var(--pagination-link__color--disabled);
+    pointer-events: none;
+
+    @media (-ms-high-contrast: active), (forced-colors: active) {
+      border: 0;
+      color: GrayText;
+      cursor: not-allowed;
+
+      .ds-c-icon {
+        color: GrayText;
+        fill: GrayText;
+
+        path {
+          color: GrayText;
+          fill: GrayText;
+          stroke: GrayText;
+        }
+      }
+    }
+  }
+}
+
+// Style the day picker as a floating dialog below the field
+.ds-c-single-input-date-field {
+  position: relative;
+
+  .rdp {
+    border: 1px solid var(--color-gray-dark);
+    border-radius: 8px;
+    box-shadow: 0 0 17px 0 var(--color-gray-light);
+    left: 0;
+    margin: 0;
+    margin-top: $spacer-1;
+    padding: $spacer-2;
+    position: absolute;
+    top: 100%;
+  }
+}
+
+// Style the single-input date field and its calendar-picker button
+.ds-c-single-input-date-field__field-wrapper {
+  .ds-c-single-input-date-field--with-picker & {
+    align-items: stretch;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: $spacer-half;
+    margin-top: $spacer-half;
+
+    .ds-c-field {
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+      margin-bottom: 0;
+      margin-right: calc(-1 * var(--text-input__border-width));
+      margin-top: 0;
+
+      &:focus,
+      &:active {
+        z-index: 1;
+      }
+
+      &.ds-c-field--error {
+        margin-right: calc(-1 * var(--text-input__border-width--error));
+      }
+    }
+  }
+
+  .ds-c-field {
+    max-width: 108px;
+  }
+
+  .ds-c-single-input-date-field__button {
+    appearance: none;
+    background-color: var(--day-picker-button__background-color--hover);
+    border: var(--text-input__border-width) solid var(--text-input__border-color);
+    border-radius: var(--text-input__border-radius);
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    color: var(--color-primary);
+    cursor: pointer;
+    margin: 0;
+    padding: $spacer-half $spacer-1;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+
+    &:after {
+      background: var(--text-input__divider-color);
+      bottom: 0;
+      content: '';
+      display: block;
+      left: calc(-1 * var(--text-input__border-width));
+      position: absolute;
+      top: 0;
+      width: var(--text-input__border-width);
+    }
+
+    &:focus,
+    &:active {
+      @include mixins.focus-styles;
+
+      &:after {
+        display: none;
+      }
+    }
+  }
+
+  .ds-c-field--error + .ds-c-single-input-date-field__button {
+    border: var(--text-input__border-width--error) solid var(--text-input__border-color--error);
+
+    &:after {
+      left: calc(-1 * var(--text-input__border-width--error));
+      width: var(--text-input__border-width--error);
+    }
+  }
+
+  .ds-c-field--error.ds-c-field--inverse + .ds-c-single-input-date-field__button {
+    border: var(--text-input__border-width--error) solid
+      var(--text-input__border-color--error--inverse);
+  }
+
+  .ds-c-icon--calendar {
+    height: 75%;
+  }
+}

@@ -1,0 +1,21 @@
+@use '../layout' as *;
+
+select.ds-c-field {
+  appearance: none;
+  background-color: var(--dropdown__background-color);
+  background-image: url('../images/arrow-both.svg');
+  background-position: right $spacer-1 center;
+  background-repeat: no-repeat;
+  background-size: var(--dropdown__icon-size);
+  padding-inline-end: 28px;
+
+  &[multiple] {
+    background-image: none;
+  }
+
+  // Removes inner outline on select elements in Firefox.
+  &:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+  }
+}

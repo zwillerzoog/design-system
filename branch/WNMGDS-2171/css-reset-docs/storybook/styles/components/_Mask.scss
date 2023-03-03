@@ -1,0 +1,22 @@
+.ds-c-field-mask {
+  position: relative;
+}
+
+.ds-c-field__before {
+  inset: var(--text-input__padding) auto var(--text-input__padding) var(--text-input__padding);
+  position: absolute;
+}
+
+.ds-c-field__before--currency {
+  // Increase currency size so it serves more as an icon and
+  // better aligns with the input value text
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  // Adjust to better align icon with value's baseline
+  padding-block-start: 1px;
+}
+
+.ds-c-field--currency {
+  // Normal padding + space for the icon + normal padding
+  padding-inline-start: 20px;
+}

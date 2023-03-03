@@ -1,0 +1,27 @@
+@use '../layout' as *;
+
+.ds-c-month-picker {
+  margin-block: $spacer-3;
+}
+
+.ds-c-month-picker__buttons {
+  margin-block: $spacer-2 $spacer-1;
+
+  .ds-c-month-picker__button {
+    margin-inline-end: $spacer-1;
+  }
+}
+
+.ds-c-month-picker__months {
+  max-width: 400px;
+}
+
+.ds-c-month-picker__months-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+.ds-c-month-picker__month {
+  width: 100px;
+}

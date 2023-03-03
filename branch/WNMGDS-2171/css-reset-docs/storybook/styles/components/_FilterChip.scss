@@ -1,0 +1,89 @@
+@use '../layout' as *;
+@use '../mixins';
+
+.ds-c-filter-chip__button {
+  background-color: var(--filter-chip__background-color);
+  border: 1px solid var(--filter-chip__border-color);
+  border-radius: var(--filter-chip__border-radius);
+  color: var(--filter-chip__color);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
+  margin-block-start: $spacer-1;
+  margin-inline-end: $spacer-1;
+  min-height: 0;
+  padding: $spacer-half $spacer-1;
+  padding-inline-end: 34px;
+  position: relative;
+  text-align: start;
+
+  &--big {
+    min-height: 44px;
+    padding: $spacer-1 $spacer-2;
+    padding-inline-end: 34px;
+  }
+
+  &:active,
+  &:focus,
+  &:hover {
+    background-color: var(--filter-chip__background-color--active);
+    border: 1px solid var(--filter-chip__border-color--active);
+    color: var(--filter-chip__color--active);
+  }
+  &:focus {
+    @include mixins.focus-styles;
+  }
+
+  > * {
+    pointer-events: none;
+  }
+}
+
+.ds-c-filter-chip__clear-icon-container {
+  border: 1px solid var(--filter-chip__color);
+  border-radius: 50%;
+  display: inline-block;
+  height: var(--filter-chip-icon__container-size);
+  margin-inline-start: $spacer-1;
+  padding: 0;
+  position: absolute;
+  right: $spacer-1;
+  top: 50%;
+  transform: translateY(-50%);
+  vertical-align: middle;
+  width: var(--filter-chip-icon__container-size);
+
+  &.ds-c-filter-chip__clear-icon-alternate-container {
+    border: 0;
+  }
+
+  .ds-c-icon--close {
+    display: block;
+    fill: var(--filter-chip__color);
+    height: 10px;
+    left: 3px;
+    position: relative;
+    top: 3px;
+    width: 10px;
+
+    @media (-ms-high-contrast: active), (forced-colors: active) {
+      path {
+        fill: ButtonText;
+      }
+    }
+  }
+
+  .ds-c-icon--close-thin {
+    height: 12px;
+    width: 12px;
+  }
+
+  .ds-c-filter-chip__button:active &,
+  .ds-c-filter-chip__button:focus &,
+  .ds-c-filter-chip__button:hover & {
+    border-color: var(--filter-chip__color--active);
+
+    .ds-c-icon--close {
+      fill: var(--filter-chip__color--active);
+    }
+  }
+}
