@@ -1,3 +1,7 @@
+@import '@cmsgov/ds-medicare-gov/dist/css/index';
+@import '@cmsgov/ds-medicare-gov/dist/css/medicare-theme';
+
 body {
   margin: 0;
+  @extend .ds-u-fill--primary;
 }

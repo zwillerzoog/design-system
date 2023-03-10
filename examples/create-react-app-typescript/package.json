@@ -3,17 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@cmsgov/design-system": "^6.0.0-beta.2",
+    "@cmsgov/ds-medicare-gov": "8.0.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.0",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
+    "eslint": "^7.11.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^4.0.3",
     "sass": "^1.53.0",
     "typescript": "^4.8.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "postcss": "7.0.39"
   },
   "scripts": {
     "start": "react-scripts start",
