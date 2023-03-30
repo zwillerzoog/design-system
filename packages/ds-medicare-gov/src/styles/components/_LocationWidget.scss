@@ -1,0 +1,158 @@
+.ds-c-location {
+  border: 2px solid #e2e2e4;
+  border-radius: 20px;
+  margin-top: 50px;
+  padding: 20px 35px 35px;
+  position: relative;
+  text-align: left;
+}
+
+div.ds-c-location div.ds-c-iw {
+  border-bottom: 0;
+  border-top-left-radius: 110px; /* 100px of height + 10px of border */
+  border-top-right-radius: 110px; /* 100px of height + 10px of border */
+  height: 60px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: -30px;
+  width: 100%;
+}
+
+div.ds-c-location div.semi-circle {
+  background-color: white;
+  border: 2px solid #e2e2e4;
+  border-bottom: 0;
+  border-top-left-radius: 110px; /* 100px of height + 10px of border */
+  border-top-right-radius: 110px; /* 100px of height + 10px of border */
+  height: 50px;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: -21px;
+  width: 100px;
+}
+
+div.ds-c-location div.semi-circle::before {
+  background-color: white;
+  border-top: none;
+  border-top-left-radius: 110px;
+  border-top-right-radius: 110px;
+  content: '';
+  display: block;
+  height: 50px;
+  width: 100%;
+}
+
+div.ds-c-location img {
+  height: 48px;
+  left: 0;
+  margin: -5px auto 0 auto;
+  position: absolute;
+  right: 0;
+  width: fit-content;
+}
+
+div.ds-c-location i:before {
+  color: #1e3c70;
+}
+
+div.ds-c-location h2 {
+  color: #323a45;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.3333333333;
+  margin: 20px 0 5px;
+}
+
+div.ds-c-location p {
+  font-family: 'Rubik', sans-serif;
+  line-height: 24px;
+  margin: 0 0 20px;
+}
+
+div.ds-c-location div.form-wrapper {
+  align-items: flex-end;
+  display: flex;
+  font-family: 'Rubik', sans-serif;
+  font-size: 16px;
+  justify-content: start;
+  line-height: 1.5;
+}
+
+div.location-input {
+  margin-right: 2px;
+  padding: 0;
+  position: relative;
+}
+
+div.ds-c-location label.ds-c-label {
+  display: block;
+  line-height: 15px;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 4px;
+}
+
+div.ds-c-location label.ds-c-label span {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+div.ds-c-location button.ds-c-button {
+  border: 2px solid #1e3c70;
+  border-radius: 0 3px 3px 0;
+  color: #404040;
+  font-family: 'Rubik', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  height: 57px;
+  line-height: 1.3;
+  margin: 24px 0 0 0;
+  padding: 8px 24px;
+  position: relative;
+  z-index: 10;
+}
+
+div.ds-c-location button.ds-c-button:disabled {
+  background-color: #d9d9d9;
+  border: none;
+}
+
+div.ds-c-location input {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  display: block;
+  font-size: 16px;
+  height: 53px;
+  margin-top: 4px;
+  max-width: 100%;
+  padding: 0 0px 0 16px;
+  position: relative;
+  width: calc(100% - 18px);
+}
+
+div.ds-c-location input.ds-c-field:focus {
+  z-index: 20;
+}
+
+.ds-c-zip-input {
+  flex-grow: 1;
+  max-width: 100%;
+}
+
+.ds-c-field__error-message {
+  bottom: -30px;
+  position: absolute;
+}
+
+@media (min-width: 900px) {
+  div.ds-c-location button#submit-button {
+    min-width: 145px;
+  }
+}

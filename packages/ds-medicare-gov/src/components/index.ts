@@ -18,3 +18,4 @@ export { default as Stars } from './Stars';
 export * from './HelpDrawer';
 export * from './Dialog';
 export * from './Icons';
+export { default as LocationWidget } from './LocationWidget';
